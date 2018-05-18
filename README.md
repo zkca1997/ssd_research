@@ -1,1 +1,1 @@
-# ssd_research
+README (see subdirectory README files)

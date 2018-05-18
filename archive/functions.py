@@ -43,7 +43,7 @@ def success(process,notes="None"):
 
 def note(note):
     err_file.write(get_time()+' -- '+ note + '\n\n')
-    
+
 def create_file(size,file_name):
     try:
         file = open(file_name,'wb')
@@ -61,7 +61,7 @@ def create_file(size,file_name):
         file.close()
         remove_file(file_name)
         error("create_file","Failed to fill file named "+str(size)+"MB.txt\n\tThe previous remove file was for this failed one")
-        
+
 def remove_file(file_name):
     try:
         os.remove(file_name)
@@ -100,7 +100,7 @@ class ssd_test_class:
         self.start   = start_serial_coms
         self.stop    = stop_serial_coms
         self.sleep   = int(wait_time)
-        
+
     def blank_test(self):
         try:
             ###ACTUAL IMPORTANT THING
@@ -133,7 +133,7 @@ class ssd_test_class:
             success("write_test")
         except:
             error("write_test")
-        
+
     def read_test(self):
         try:
             note("BEGINNING OF READ TEST OF "+self.sname)
