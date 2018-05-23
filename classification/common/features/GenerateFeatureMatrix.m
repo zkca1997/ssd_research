@@ -1,7 +1,7 @@
 function [feat_matrix, labels] = GenerateFeatureMatrix( classes, topdir )
 
   feat_matrix = zeros(0, 300);
-  labels      = cell(1,2);
+  labels      = cell(0,3);
 
   for i = 1:length(classes)
 
@@ -20,11 +20,18 @@ function [feat_matrix, labels] = GenerateFeatureMatrix( classes, topdir )
       file_label{1} = repmat(classes(i), size(file_feat,1), 1);
       file_label{2} = j * ones(size(file_feat,1),1);
 
+      if mod(label{2}, 2) == 1
+        file_label{3} = repmat("write", size(file_feat,1), 1);
+      else
+        file_label{3} = repmat("read", size(file_feat,1), 1);
+      end
+
       % concatenate file's data with global feature and label sets
       feat_matrix = vertcat(feat_matrix, file_feat);
       labels{1}   = vertcat(labels{1}, file_label{1});
       labels{2}   = vertcat(labels{2}, file_label{2});
-      
+      labels{3}   = vertcat(labels{3}, file_label{3});
+
       % report the number of events processed from a file
       fprintf('%d events created from %s\n', size(file_feat,1),...
           filelist(j).name);
@@ -59,4 +66,3 @@ function feat_matrix = Raw2FeatureMatrix( file, FilterSignal,...
   feat_matrix = CreateFeatures(filtered_signal);
 
 end
-

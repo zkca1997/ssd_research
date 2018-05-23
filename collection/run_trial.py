@@ -92,11 +92,10 @@ def main():
         test.fname = test.floc + '\\' + test.sname
         test.clear_cache()
         for trial in range(trials):
-            test.read_test()
             test.clear_cache()
-        for trial in range(trials):
             test.write_test()
             test.clear_cache()
+            test.read_test()
     quit()
 
 main()
