@@ -3,6 +3,6 @@
 
 #include <gsl/gsl_matrix.h>
 
-void pwelch(gsl_vector* signal, int bins, double fs);
+double* pwelch(double* signal, int len, int bins, double fs);
 
 #endif  // PWELCH_H
