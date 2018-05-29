@@ -3,21 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <gsl/gsl_matrix.h>
-
-void hann_window(double* signal, int n) {
-  for(int i = 0; i < n; i++) {
-    double weight =  0.5 * (1 - cos(2 * M_PI * i / (n - 1)));
-    signal[i] *= weight;
-  }
-}
-
-void add_to_mag(fftw_complex* complex, double* mag, int n) {
-  for(int i = 0; i < n; i++) {
-    mag[i] += sqrt( complex[i][0] * complex[i][0] +
-                    complex[i][1] * complex[i][1] );
-  }
-}
+#include "pwelch.h"
 
 double* pwelch(double* signal, int len, int bins, double fs) {
 
@@ -36,7 +22,7 @@ double* pwelch(double* signal, int len, int bins, double fs) {
 
     // 1) copy slice to tmp_in array
     void* offset = signal + i;
-    memcpy(in, offset, n);
+    memcpy(in, offset, n);void
 
     // 2) apply hann window to tmp_in
     hann_window(in, n);
@@ -54,4 +40,18 @@ double* pwelch(double* signal, int len, int bins, double fs) {
   for(int i = 0; i < bins; i++) { accum[i] /= (double) count; }
 
   return accum;
+}
+
+void hann_window(double* signal, int n) {
+  for(int i = 0; i < n; i++) {
+    double weight =  0.5 * (1 - cos(2 * M_PI * i / (n - 1)));
+    signal[i] *= weight;
+  }
+}
+
+void add_to_mag(fftw_complex* complex, double* mag, int n) {
+  for(int i = 0; i < n; i++) {
+    mag[i] += sqrt( complex[i][0] * complex[i][0] +
+                    complex[i][1] * complex[i][1] );
+  }
 }
