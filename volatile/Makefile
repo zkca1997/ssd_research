@@ -15,7 +15,7 @@ RM			  = rm
 CFLAGS		= -Wall
 INCLUDES	= -Iinclude -I/usr/include/gsl
 LDFLAGS 	=
-LDLIBS		= -lgsl -lgslcblas -lfftw3
+LDLIBS		= -lgsl -lgslcblas -lfftw3 -lm
 
 all:	$(TARGET)
 

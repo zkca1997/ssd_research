@@ -1,36 +1,57 @@
 #include <stdio.h>
 #include <fftw3.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
-#include <gsl/gsl_matrix.h>
+#include "pwelch.h"
 
-/*void hann_window(double* signal, int window_size)
-{
-  for(int i = 0; i < window_size; i++) {
-    int weight =  0.5 * (1 - cos(2*M_PI*i / (window_size - 1)));
-    signal[i] *= weight;
-  }
-}*/
+double* pwelch(double* signal, int len, int bins, double fs) {
 
-void pwelch(gsl_vector* signal, int bins, double fs)
-{
-  int window_len = 2 * bins;
+  int step = bins - 1;
+  int n    = 2 * step;
 
-  for(int i = 0; (i + window_len) <= signal->size; i += bins)
-  {
-    // take slice of signal of window length and set as "in"
-    gsl_vector_view slice = gsl_vector_subvector(signal, i, window_len);
+  double* in  = (double*) fftw_malloc(n * sizeof(double));
+  fftw_complex* out = (fftw_complex*) fftw_malloc(bins * sizeof(fftw_complex));
+  fftw_plan plan = fftw_plan_dft_r2c_1d(n, in, out, FFTW_ESTIMATE);
 
-    // execute FFT with output "out"
-    double* out = (double*) malloc(sizeof(double) * bins);
-    fftw_plan plan = fftw_plan_r2r_1d(window_len, slice.vector.data, out,
-                                          FFTW_R2HC, FFTW_ESTIMATE);
+  // initialize accum array
+  double* accum = (double*) calloc(bins, sizeof(double));
 
-    fprintf(stderr, "BREAKPOINT\n");
+  int count = 0;
+  for(int i = 0; (i + n) <= len; i += step) {
+
+    // 1) copy slice to tmp_in array
+    void* offset = signal + i;
+    memcpy(in, offset, n);void
+
+    // 2) apply hann window to tmp_in
+    hann_window(in, n);
+
+    // 3) execute fft
     fftw_execute(plan);
 
-    // clean up
-    fftw_destroy_plan(plan);
-    free(out);
+    // 4) convert to magnitudes and add to mag accum array
+    add_to_mag(out, accum, bins);
+
+    // 5) iterate counter
+    count++;
+  }
+
+  for(int i = 0; i < bins; i++) { accum[i] /= (double) count; }
+
+  return accum;
+}
+
+void hann_window(double* signal, int n) {
+  for(int i = 0; i < n; i++) {
+    double weight =  0.5 * (1 - cos(2 * M_PI * i / (n - 1)));
+    signal[i] *= weight;
+  }
+}
+
+void add_to_mag(fftw_complex* complex, double* mag, int n) {
+  for(int i = 0; i < n; i++) {
+    mag[i] += sqrt( complex[i][0] * complex[i][0] +
+                    complex[i][1] * complex[i][1] );
   }
 }
