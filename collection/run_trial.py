@@ -18,7 +18,7 @@ class ssd_test_class:
 
         # create a file and save it to the C:\ Drive
         if not os.path.isfile(self.fname):
-            create_file(self.size, self.fname)
+            self.create_file(self.size, self.fname)
         shutil.move(self.fname, self.rloc+'\\'+self.sname)
 
         self.clear_cache()
@@ -37,7 +37,7 @@ class ssd_test_class:
 
         # create a file and save it the SSD
         if not os.path.isfile(self.fname):
-            create_file(self.size, self.fname)
+            self.create_file(self.size, self.fname)
 
         self.clear_cache()
 
@@ -110,11 +110,11 @@ def main():
     args        = ParseArgs()
 
     test    = ssd_test_class(0, os.getcwd(), args, trigger_on, trigger_off)
-    for size in sizes:
+    for size in args.sizes:
         test.size = size
         test.sname = str(size)+"MB.txt"
         test.fname = test.floc + '\\' + test.sname
-        for trial in range(trials):
+        for trial in range(args.num_trials):
             test.write_test()
             test.read_test()
     quit()
