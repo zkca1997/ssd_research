@@ -3,9 +3,9 @@ close all;  % close old figures
 tic;        % start timer
 
 % relevant directories
-code_dir = '/home/tkirk/Research/code/classification';
-data_dir = '/home/tkirk/Research/data/test_1';
-work_dir = '/home/tkirk/Research/work/test_1';
+code_dir = 'G:\Team Drives\SSD Research\Walker - Reproduce Johnson Work, 2018-06\ssd_research-master_Johnson-Walker\classification';
+data_dir = 'G:\Team Drives\SSD Research\Walker - Reproduce Johnson Work, 2018-06\test_1';
+work_dir = 'G:\Team Drives\SSD Research\Walker - Reproduce Johnson Work, 2018-06\test_1';
 classes = ["000f", "010g", "040h", "070h", "0309"];
 datafile = [work_dir, '/features.mat'];
 

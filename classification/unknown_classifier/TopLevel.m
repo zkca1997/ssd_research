@@ -1,14 +1,14 @@
 %% ROC curve
 N = 1000; 
 resol = 2000;
-str1 = '/home/tkirk/Research/unknown_detect/';
+str1 = 'G:\Team Drives\SSD Research\Walker - Reproduce Johnson Work, 2018-06\work\test_1\unknown_detect/';
 str2 = '_unknown_detect.png';
 
 for i = 1:length(classes)
     
    % training data and validation set
    test = strcmp(labels{1},classes(i)); train = ~test;
-   proj_matrix = plda(feat_matrix(train,:), labels{1}(train));
+   proj_matrix = pfda(feat_matrix(train,:), labels{1}(train));  % TOWIII: change plda to pfda
    
    % train QDA model
    model = fitcdiscr(feat_matrix(train,:) * proj_matrix,...
