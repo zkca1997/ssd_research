@@ -1,0 +1,54 @@
+1. First, generate the feature matrix files with Raw2FeatureFile
+	
+	Syntax: RawToFeatureFile("[firmware]", "[path to firmware directory]", "[path to outfile.mat]")
+
+on my system, I run (these take a long time)
+
+	RawToFeatureFile("040h", "C:\Users\m193060\Documents\Research Data\test_1\040h", "C:\Users\m193060\Documents\Research Data\features_1\040h.mat")
+	RawToFeatureFile("0309", "C:\Users\m193060\Documents\Research Data\test_1\0309", "C:\Users\m193060\Documents\Research Data\features_1\0309.mat")
+	RawToFeatureFile("070h", "C:\Users\m193060\Documents\Research Data\test_1\070h", "C:\Users\m193060\Documents\Research Data\features_1\070h.mat")
+	RawToFeatureFile("010g", "C:\Users\m193060\Documents\Research Data\test_1\010g", "C:\Users\m193060\Documents\Research Data\features_1\010g.mat")
+	RawToFeatureFile("000f", "C:\Users\m193060\Documents\Research Data\test_1\000f", "C:\Users\m193060\Documents\Research Data\features_1\000f.mat")
+
+2. Next, run the BinaryMatrix.m script.  This will generate the 5 by 5 matrix that was included in my weekly powerpoint https://docs.google.com/presentation/d/1N4Waw4CSsCNLAOFOL5we1IxA0BV99tWyaQLQWunL7DU/edit?usp=sharing
+	
+	# edit line 1 to the location of the firmware subdirectories
+	# edit line 9 so 'features/' is 'features\' (for Windows users)
+	BinaryMatrix
+
+3. Finally, run the BinaryClassifier.m script.  The output of this are what are referenced in "Classifying Solid State Drive Firmware Via Side-Channel Current Analysis"
+
+	# edit line 1 to the location of the firmware subdirectories
+	# edit line 3 so 'features/' is 'features\' (for Windows users)
+	BinaryClassifier
+
+This took over 30 minutes on my laptop.  For your convenience, here is a quick script to automate the process, set the directory variable where the firmware directories are:
+
+% set this for your system
+directory = "C:\Users\m193060\Documents\Research Data\test_1\";
+
+classes = ["000f", "010g", "0309", "040h", "070h"];
+feats = ["000f.mat", "010g.mat", "0309.mat", "040h.mat", "070h.mat"];
+
+for i = 1:length(classes)
+	class = classes(i);
+	data = strcat(directory, class);
+	feat = strcat(directory, 'features\', feats(i));
+    if ~exist(feat, 'file')
+        RawToFeatureFile(class, data, feat);
+    else
+        fprintf("%s.mat file already exists, skipping\n", class);
+    end
+end
+
+fprintf("Starting BinaryMatrix\n");
+BinaryMatrix
+
+
+fprintf("Starting BinaryClassifier\n");
+BinaryClassify
+
+% play song to indicate end of program
+load handel
+sound(y,Fs)
+
