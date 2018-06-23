@@ -40,6 +40,8 @@ for i = 1:size(comb,1)
     
     % report performance of binary classifier on subset of classes
     performance(i) = CrossValTest(X, Y, @model_IPCA_QDA);
+    fprintf('%s - %s classification error rate:\t%g\n', ...
+        comb(i,1), comb(i,2), performance(i).ErrorRate);
 end
 
 %% Footer

@@ -1,6 +1,6 @@
 function predicted = model_IPCA_QDA(X_train, Y_train, X_test)
     
-    % apply PFDA to training data
+    % apply PCA to training data
     proj = ipca(X_train, 0.9);
     Xp_train = X_train * proj;
     Xp_test  = X_test * proj;

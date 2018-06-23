@@ -9,9 +9,9 @@ Oscilloscope Setup (using Gen3 High Speed Recorder):
 
 1.  Open "Perception" application on Gen3 High Speed 
 
-2.  File -> Open Virtual Workspace: Select "MIDN_RESEARCH.vwb"
+2.  File -> Open Virtual Workspace: Select "MIDN_RESEARCH.pvwb"
 
-3.  Configure the output folder and file type as appropriate (Automation -> Automatic Batch Recording...)
+3.  Configure the output folder and file type as appropriate (Automation -> Automatic Process Recording...)
 
 4.  Ensure the TCPA300 Amplifier is configured correctly (green light next to "Probe Degauss Autobalance")
 
