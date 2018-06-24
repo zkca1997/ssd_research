@@ -1,4 +1,4 @@
-directory = '/run/media/tiberius/MediaDrive/Research/data/';
+directory = 'C:\Users\m193060\Documents\Research Data\test_1\';
 
 % RawToFeatureFile("040h", [directory, '040h'], [directory, 'features/040h.mat']);
 % RawToFeatureFile("0309", [directory, '0309'], [directory, 'features/0309.mat']);
@@ -6,7 +6,7 @@ directory = '/run/media/tiberius/MediaDrive/Research/data/';
 % RawToFeatureFile("010g", [directory, '010g'], [directory, 'features/010g.mat']);
 % RawToFeatureFile("000f", [directory, '000f'], [directory, 'features/000f.mat']);
 
-directory = [directory, 'features/'];
+directory = [directory, 'features\'];
 cd(directory);
 
 firms = ["000f.mat", "010g.mat", "070h.mat", "0309.mat", "040h.mat"];

@@ -22,7 +22,7 @@ on my system, I run (these take a long time)
 	# edit line 3 so 'features/' is 'features\' (for Windows users)
 	BinaryClassifier
 
-This took over 30 minutes on my laptop.  For your convenience, here is a quick script to automate the process, set the directory variable where the firmware directories are:
+This takes hours to run (much longer than the current version).  For your convenience, here is a quick script to automate the function calls.  set the directory variable where the firmware directories are:
 
 % set this for your system
 directory = "C:\Users\m193060\Documents\Research Data\test_1\";
@@ -51,4 +51,3 @@ BinaryClassify
 % play song to indicate end of program
 load handel
 sound(y,Fs)
-

@@ -1,6 +1,6 @@
-directory = '/run/media/tiberius/MediaDrive/Research/data/';
+directory = "C:\Users\m193060\Documents\Research Data\test_1\";
 
-directory = [directory, 'features/'];
+directory = strcat(directory, "features\");
 cd(directory);
 
 firms = ["000f.mat", "010g.mat"];
