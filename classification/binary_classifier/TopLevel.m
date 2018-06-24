@@ -1,11 +1,11 @@
 %% Header
 
 % relevant directories
-code_dir = '/home/tkirk/Research/code/classification';
-data_dir = '/home/tkirk/Research/data/test_1';
-work_dir = '/home/tkirk/Research/work/test_1';
+code_dir = "C:\Users\m193060\Documents\GitHub\ssd_research\classification";
+data_dir = "C:\Users\m193060\Documents\Research Data\test_1\";
+work_dir = strcat(data_dir, "features\");
 classes = ["000f", "010g", "040h", "070h", "0309"];
-datafile = [work_dir, '/features.mat'];
+datafile = strcat(work_dir, "features.mat");
 
 % generate feature matrix if it doesn't exist
 if( ~exist('feat_matrix','var') || ~exist('labels','var') )
@@ -41,7 +41,7 @@ for i = 1:size(comb,1)
     % report performance of binary classifier on subset of classes
     performance(i) = CrossValTest(X, Y, @model_IPCA_QDA);
     fprintf('%s - %s classification error rate:\t%g\n', ...
-        comb(i,1), comb(i,2), performance(i).ErrorRate);
+        comb{i,1}, comb{i,2}, performance(i).ErrorRate);
 end
 
 %% Footer

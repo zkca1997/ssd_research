@@ -1,12 +1,12 @@
 function [feat_matrix, labels] = GenerateFeatureMatrix( classes, topdir )
 
   feat_matrix = zeros(0, 300);
-  labels      = cell(0,3);
+  labels      = cell(1,3);
 
   for i = 1:length(classes)
 
     % get all relevant files from class file directory
-    filelist = FindFiles([topdir, '/', char(classes(i))]);
+    filelist = FindFiles(strcat(topdir, classes(i)));
 
     % for each file, compute the feature matrix for that file
     for j = 1:size(filelist,1)
@@ -20,7 +20,7 @@ function [feat_matrix, labels] = GenerateFeatureMatrix( classes, topdir )
       file_label{1} = repmat(classes(i), size(file_feat,1), 1);
       file_label{2} = j * ones(size(file_feat,1),1);
 
-      if mod(label{2}, 2) == 1
+      if mod(file_label{2}, 2) == 1
         file_label{3} = repmat("write", size(file_feat,1), 1);
       else
         file_label{3} = repmat("read", size(file_feat,1), 1);
