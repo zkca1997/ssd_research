@@ -16,14 +16,16 @@ function [feat_matrix, labels] = GenerateFeatureMatrix( classes, topdir )
       file_feat = Raw2FeatureMatrix(file, @TrimTails, @FeaturesA);
 
       % create a cell array for these features and annotate with labels
-      file_label = cell(1,2);
+      % {class string, device ID, trial #, operation, filesize}
+      
+      file_label = cell(1,3);
       file_label{1} = repmat(classes(i), size(file_feat,1), 1);
-      file_label{2} = j * ones(size(file_feat,1),1);
+      file_label{3} = j * ones(size(file_feat,1),1);
 
       if mod(file_label{2}, 2) == 1
-        file_label{3} = repmat("write", size(file_feat,1), 1);
+        file_label{4} = repmat("write", size(file_feat,1), 1);
       else
-        file_label{3} = repmat("read", size(file_feat,1), 1);
+        file_label{5} = repmat("read", size(file_feat,1), 1);
       end
 
       % concatenate file's data with global feature and label sets

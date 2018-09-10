@@ -77,7 +77,7 @@ def ParseArgs():
     parser = argparse.ArgumentParser(description='automated test script')
 
     parser.add_argument("-n", "--num_trials",
-                        default=10,
+                        default=5,
                         help="number of read and write trials to run")
 
     parser.add_argument("-l", "--ssd_path",
@@ -97,7 +97,7 @@ def ParseArgs():
 
     parser.add_argument("-s", "--sizes",
                         type=list,
-                        default=[1024],
+                        default=[4, 16, 64, 256, 1024],
                         help="file sizes to test (in MB)")
 
     return parser.parse_args()
