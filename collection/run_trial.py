@@ -102,8 +102,7 @@ def ParseArgs():
 
     return parser.parse_args()
 
-def main():
-
+if __name__ == "__main__":
     trigger_on  = serial.Serial('COM13',9600)
     trigger_off = serial.Serial('COM12',9600)
     floc        = os.getcwd()
@@ -118,5 +117,3 @@ def main():
             test.write_test()
             test.read_test()
     quit()
-
-main()
